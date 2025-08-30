@@ -1,0 +1,138 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { 
+  BookOpen, 
+  Search, 
+  Menu, 
+  X, 
+  User, 
+  GraduationCap,
+  Scale,
+  FileText,
+  Crown
+} from "lucide-react";
+
+const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const menuItems = [
+    { icon: BookOpen, label: "Apostilas", href: "/apostilas" },
+    { icon: FileText, label: "Artigos", href: "/artigos" },
+    { icon: Scale, label: "Constituições", href: "/constituicoes" },
+    { icon: GraduationCap, label: "Professores", href: "/professores" },
+  ];
+
+  return (
+    <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-16 items-center justify-between">
+        {/* Logo */}
+        <div className="flex items-center space-x-2">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg accent-gradient">
+            <Scale className="h-6 w-6 text-background" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-xl font-bold tracking-tight">LuthyAcademi</span>
+            <span className="text-xs text-muted-foreground">Educação Jurídica Acessível</span>
+          </div>
+        </div>
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-6">
+          {menuItems.map((item) => (
+            <Button
+              key={item.label}
+              variant="ghost"
+              className="text-foreground hover:text-primary hover:bg-accent/50 transition-smooth"
+            >
+              <item.icon className="h-4 w-4 mr-2" />
+              {item.label}
+            </Button>
+          ))}
+        </div>
+
+        {/* Search and Actions */}
+        <div className="flex items-center space-x-4">
+          {/* Search Toggle */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            className="text-muted-foreground hover:text-foreground transition-smooth"
+          >
+            <Search className="h-4 w-4" />
+          </Button>
+
+          {/* Desktop Actions */}
+          <div className="hidden md:flex items-center space-x-2">
+            <Button variant="outline" size="sm" className="focus-ring">
+              <User className="h-4 w-4 mr-2" />
+              Entrar
+            </Button>
+            <Button variant="default" size="sm" className="accent-gradient text-background font-medium focus-ring">
+              <Crown className="h-4 w-4 mr-2" />
+              Premium
+            </Button>
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
+        </div>
+      </div>
+
+      {/* Search Bar - Expandable */}
+      {isSearchOpen && (
+        <div className="border-t border-border/40 bg-card/50 backdrop-blur-sm p-4">
+          <div className="container">
+            <div className="relative max-w-md mx-auto">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Buscar materiais, artigos, constituições..."
+                className="pl-9 bg-background/50 border-border/60 focus:border-primary/50 focus-ring"
+                autoFocus
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden border-t border-border/40 bg-card/95 backdrop-blur-sm">
+          <div className="container py-4 space-y-3">
+            {menuItems.map((item) => (
+              <Button
+                key={item.label}
+                variant="ghost"
+                className="w-full justify-start text-foreground hover:bg-accent/50 transition-smooth"
+              >
+                <item.icon className="h-4 w-4 mr-3" />
+                {item.label}
+              </Button>
+            ))}
+            <div className="pt-4 border-t border-border/40 space-y-2">
+              <Button variant="outline" className="w-full focus-ring">
+                <User className="h-4 w-4 mr-2" />
+                Entrar
+              </Button>
+              <Button variant="default" className="w-full accent-gradient text-background font-medium focus-ring">
+                <Crown className="h-4 w-4 mr-2" />
+                Tornar-se Premium
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default Navbar;
