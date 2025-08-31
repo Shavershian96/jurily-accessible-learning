@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import CategoriesSection from "@/components/CategoriesSection";
 import FeaturedMaterials from "@/components/FeaturedMaterials";
+import SpotifyIntegration from "@/components/SpotifyIntegration";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -12,6 +13,7 @@ const Index = () => {
         <Hero />
         <CategoriesSection />
         <FeaturedMaterials />
+        <SpotifyIntegration />
       </main>
       <Footer />
     </div>
