@@ -116,7 +116,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (data.user) {
         toast({
           title: "Login realizado com sucesso!",
-          description: "Bem-vindo de volta à LuthyAcademi.",
+          description: "Bem-vindo de volta à Luthi Academy.",
         });
         
         // Force page reload for clean state

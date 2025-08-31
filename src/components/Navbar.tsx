@@ -37,7 +37,7 @@ const Navbar = () => {
             <Scale className="h-6 w-6 text-background" />
           </div>
           <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tight">LuthyAcademi</span>
+            <span className="text-xl font-bold tracking-tight">Luthi Academy</span>
             <span className="text-xs text-muted-foreground">Educação Jurídica Acessível</span>
           </div>
         </Link>
