@@ -14,13 +14,216 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      audioJobs: {
+        Row: {
+          createdAt: string | null
+          id: number
+          log: string | null
+          materialId: number
+          requestedBy: string
+          resultUrl: string | null
+          status: string
+          updatedAt: string | null
+        }
+        Insert: {
+          createdAt?: string | null
+          id?: number
+          log?: string | null
+          materialId: number
+          requestedBy: string
+          resultUrl?: string | null
+          status?: string
+          updatedAt?: string | null
+        }
+        Update: {
+          createdAt?: string | null
+          id?: number
+          log?: string | null
+          materialId?: number
+          requestedBy?: string
+          resultUrl?: string | null
+          status?: string
+          updatedAt?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audioJobs_materialId_fkey"
+            columns: ["materialId"]
+            isOneToOne: false
+            referencedRelation: "materials"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "audioJobs_requestedBy_fkey"
+            columns: ["requestedBy"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      materials: {
+        Row: {
+          audioUrl: string | null
+          authorId: string
+          content: string | null
+          id: number
+          isPremium: boolean
+          pdfUrl: string | null
+          publishedAt: string | null
+          slug: string
+          tags: string[] | null
+          title: string
+          type: string
+          videoUrl: string | null
+          views: number
+        }
+        Insert: {
+          audioUrl?: string | null
+          authorId: string
+          content?: string | null
+          id?: number
+          isPremium?: boolean
+          pdfUrl?: string | null
+          publishedAt?: string | null
+          slug: string
+          tags?: string[] | null
+          title: string
+          type: string
+          videoUrl?: string | null
+          views?: number
+        }
+        Update: {
+          audioUrl?: string | null
+          authorId?: string
+          content?: string | null
+          id?: number
+          isPremium?: boolean
+          pdfUrl?: string | null
+          publishedAt?: string | null
+          slug?: string
+          tags?: string[] | null
+          title?: string
+          type?: string
+          videoUrl?: string | null
+          views?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "materials_authorId_fkey"
+            columns: ["authorId"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      menus: {
+        Row: {
+          href: string
+          id: number
+          label: string
+          orderIndex: number
+          parentId: number | null
+          visible: boolean
+        }
+        Insert: {
+          href: string
+          id?: number
+          label: string
+          orderIndex?: number
+          parentId?: number | null
+          visible?: boolean
+        }
+        Update: {
+          href?: string
+          id?: number
+          label?: string
+          orderIndex?: number
+          parentId?: number | null
+          visible?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "menus_parentId_fkey"
+            columns: ["parentId"]
+            isOneToOne: false
+            referencedRelation: "menus"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatarUrl: string | null
+          createdAt: string | null
+          id: string
+          name: string | null
+          role: string
+        }
+        Insert: {
+          avatarUrl?: string | null
+          createdAt?: string | null
+          id: string
+          name?: string | null
+          role?: string
+        }
+        Update: {
+          avatarUrl?: string | null
+          createdAt?: string | null
+          id?: string
+          name?: string | null
+          role?: string
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          currentPeriodEnd: string | null
+          id: number
+          provider: string | null
+          providerSubId: string | null
+          status: string
+          tier: string
+          userId: string
+        }
+        Insert: {
+          currentPeriodEnd?: string | null
+          id?: number
+          provider?: string | null
+          providerSubId?: string | null
+          status?: string
+          tier?: string
+          userId: string
+        }
+        Update: {
+          currentPeriodEnd?: string | null
+          id?: number
+          provider?: string | null
+          providerSubId?: string | null
+          status?: string
+          tier?: string
+          userId?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_userId_fkey"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      isPremiumUser: {
+        Args: { uid: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
