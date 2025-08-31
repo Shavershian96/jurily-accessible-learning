@@ -8,6 +8,9 @@ import Index from "./pages/Index";
 import Catalog from "./pages/Catalog";
 import Material from "./pages/Material";
 import Premium from "./pages/Premium";
+import TeacherDashboard from "./pages/TeacherDashboard";
+import Admin from "./pages/Admin";
+import Account from "./pages/Account";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
@@ -25,6 +28,9 @@ const App = () => (
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/material/:slug" element={<Material />} />
             <Route path="/premium" element={<Premium />} />
+            <Route path="/teacher/dashboard" element={<TeacherDashboard />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/account" element={<Account />} />
             <Route path="/auth" element={<Auth />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

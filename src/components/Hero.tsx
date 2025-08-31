@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 import { 
   BookOpen, 
   GraduationCap, 
@@ -66,23 +67,27 @@ const Hero = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <Button 
-            size="lg" 
-            className="accent-gradient text-background font-semibold hover:opacity-90 transition-smooth px-8 py-6 text-lg shadow-glow focus-ring"
-          >
-            <BookOpen className="h-5 w-5 mr-2" />
-            Acessar Materiais Gratuitos
-            <ArrowRight className="h-5 w-5 ml-2" />
-          </Button>
+          <Link to="/catalog">
+            <Button 
+              size="lg" 
+              className="accent-gradient text-background font-semibold hover:opacity-90 transition-smooth px-8 py-6 text-lg shadow-glow focus-ring"
+            >
+              <BookOpen className="h-5 w-5 mr-2" />
+              Acessar Materiais Gratuitos
+              <ArrowRight className="h-5 w-5 ml-2" />
+            </Button>
+          </Link>
           
-          <Button 
-            variant="outline" 
-            size="lg" 
-            className="border-border/60 hover:bg-accent/10 hover:border-primary/50 transition-smooth px-8 py-6 text-lg focus-ring"
-          >
-            <Play className="h-5 w-5 mr-2" />
-            Ver Demonstração
-          </Button>
+          <Link to="/premium">
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="border-border/60 hover:bg-accent/10 hover:border-primary/50 transition-smooth px-8 py-6 text-lg focus-ring"
+            >
+              <Play className="h-5 w-5 mr-2" />
+              Tornar-se Premium
+            </Button>
+          </Link>
         </div>
 
         {/* Stats */}
