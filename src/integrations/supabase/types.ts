@@ -220,8 +220,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      isPremiumUser: {
-        Args: { uid: string }
+      is_premium_user: {
+        Args: { user_id: string }
         Returns: boolean
       }
     }
