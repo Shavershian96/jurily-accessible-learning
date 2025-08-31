@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import { 
   BookOpen, 
   Search, 
@@ -13,19 +14,57 @@ import {
   Scale,
   FileText,
   Crown,
-  LogOut
+  LogOut,
+  Settings
 } from "lucide-react";
+
+interface MenuItem {
+  id: number;
+  label: string;
+  href: string;
+  orderIndex: number;
+  visible: boolean;
+}
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [dynamicMenus, setDynamicMenus] = useState<MenuItem[]>([]);
   const { user, signOut, isAdmin, isTeacher } = useAuth();
 
-  const menuItems = [
-    { icon: BookOpen, label: "Apostilas", href: "/apostilas" },
-    { icon: FileText, label: "Artigos", href: "/artigos" },
-    { icon: Scale, label: "Constituições", href: "/constituicoes" },
-    { icon: GraduationCap, label: "Professores", href: "/professores" },
+  const staticMenuItems = [
+    { icon: BookOpen, label: "Catálogo", href: "/catalog" },
+    { icon: Crown, label: "Premium", href: "/premium" },
+  ];
+
+  const protectedMenuItems = [
+    { icon: GraduationCap, label: "Professor", href: "/teacher/dashboard", roles: ["TEACHER", "ADMIN", "SUPERADMIN"] },
+    { icon: Settings, label: "Admin", href: "/admin", roles: ["ADMIN", "SUPERADMIN"] },
+  ];
+
+  const fetchDynamicMenus = async () => {
+    try {
+      const { data } = await supabase.functions.invoke("get-menus");
+      if (data) {
+        setDynamicMenus(data);
+      }
+    } catch (error) {
+      console.error("Error fetching menus:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDynamicMenus();
+  }, [user]);
+
+  // Combine all menu items
+  const allMenuItems = [
+    ...staticMenuItems,
+    ...dynamicMenus.map(menu => ({ icon: FileText, label: menu.label, href: menu.href })),
+    ...protectedMenuItems.filter(item => 
+      isTeacher && item.roles.includes("TEACHER") ||
+      isAdmin && (item.roles.includes("ADMIN") || item.roles.includes("SUPERADMIN"))
+    )
   ];
 
   return (
@@ -44,15 +83,16 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
-          {menuItems.map((item) => (
-            <Button
-              key={item.label}
-              variant="ghost"
-              className="text-foreground hover:text-primary hover:bg-accent/50 transition-smooth"
-            >
-              <item.icon className="h-4 w-4 mr-2" />
-              {item.label}
-            </Button>
+          {allMenuItems.map((item) => (
+            <Link key={item.label} to={item.href}>
+              <Button
+                variant="ghost"
+                className="text-foreground hover:text-primary hover:bg-accent/50 transition-smooth"
+              >
+                <item.icon className="h-4 w-4 mr-2" />
+                {item.label}
+              </Button>
+            </Link>
           ))}
         </div>
 
@@ -130,15 +170,16 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="md:hidden border-t border-border/40 bg-card/95 backdrop-blur-sm">
           <div className="container py-4 space-y-3">
-            {menuItems.map((item) => (
-              <Button
-                key={item.label}
-                variant="ghost"
-                className="w-full justify-start text-foreground hover:bg-accent/50 transition-smooth"
-              >
-                <item.icon className="h-4 w-4 mr-3" />
-                {item.label}
-              </Button>
+            {allMenuItems.map((item) => (
+              <Link key={item.label} to={item.href}>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start text-foreground hover:bg-accent/50 transition-smooth"
+                >
+                  <item.icon className="h-4 w-4 mr-3" />
+                  {item.label}
+                </Button>
+              </Link>
             ))}
             <div className="pt-4 border-t border-border/40 space-y-2">
               {user ? (
