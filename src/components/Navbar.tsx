@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/hooks/useAuth";
 import { 
   BookOpen, 
   Search, 
@@ -10,12 +12,14 @@ import {
   GraduationCap,
   Scale,
   FileText,
-  Crown
+  Crown,
+  LogOut
 } from "lucide-react";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { user, signOut, isAdmin, isTeacher } = useAuth();
 
   const menuItems = [
     { icon: BookOpen, label: "Apostilas", href: "/apostilas" },
@@ -28,7 +32,7 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center space-x-2">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg accent-gradient">
             <Scale className="h-6 w-6 text-background" />
           </div>
@@ -36,7 +40,7 @@ const Navbar = () => {
             <span className="text-xl font-bold tracking-tight">LuthyAcademi</span>
             <span className="text-xs text-muted-foreground">Educação Jurídica Acessível</span>
           </div>
-        </div>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
@@ -66,14 +70,32 @@ const Navbar = () => {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-2">
-            <Button variant="outline" size="sm" className="focus-ring">
-              <User className="h-4 w-4 mr-2" />
-              Entrar
-            </Button>
-            <Button variant="default" size="sm" className="accent-gradient text-background font-medium focus-ring">
-              <Crown className="h-4 w-4 mr-2" />
-              Premium
-            </Button>
+            {user ? (
+              <>
+                <span className="text-sm text-muted-foreground">
+                  Olá, {user.user_metadata?.name || user.email?.split('@')[0]}
+                </span>
+                <Button variant="outline" size="sm" onClick={signOut} className="focus-ring">
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sair
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link to="/auth">
+                  <Button variant="outline" size="sm" className="focus-ring">
+                    <User className="h-4 w-4 mr-2" />
+                    Entrar
+                  </Button>
+                </Link>
+                <Link to="/premium">
+                  <Button variant="default" size="sm" className="accent-gradient text-background font-medium focus-ring">
+                    <Crown className="h-4 w-4 mr-2" />
+                    Premium
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -119,14 +141,32 @@ const Navbar = () => {
               </Button>
             ))}
             <div className="pt-4 border-t border-border/40 space-y-2">
-              <Button variant="outline" className="w-full focus-ring">
-                <User className="h-4 w-4 mr-2" />
-                Entrar
-              </Button>
-              <Button variant="default" className="w-full accent-gradient text-background font-medium focus-ring">
-                <Crown className="h-4 w-4 mr-2" />
-                Tornar-se Premium
-              </Button>
+              {user ? (
+                <>
+                  <div className="text-sm text-muted-foreground mb-2">
+                    Olá, {user.user_metadata?.name || user.email?.split('@')[0]}
+                  </div>
+                  <Button variant="outline" onClick={signOut} className="w-full focus-ring">
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sair
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/auth">
+                    <Button variant="outline" className="w-full focus-ring">
+                      <User className="h-4 w-4 mr-2" />
+                      Entrar
+                    </Button>
+                  </Link>
+                  <Link to="/premium">
+                    <Button variant="default" className="w-full accent-gradient text-background font-medium focus-ring">
+                      <Crown className="h-4 w-4 mr-2" />
+                      Tornar-se Premium
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
