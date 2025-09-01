@@ -67,25 +67,25 @@ const Hero = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <Link to="/catalog">
+          <Link to="/mentoria">
             <Button 
               size="lg" 
               className="accent-gradient text-background font-semibold hover:opacity-90 transition-smooth px-8 py-6 text-lg shadow-glow focus-ring"
             >
-              <BookOpen className="h-5 w-5 mr-2" />
-              Acessar Materiais Gratuitos
+              <GraduationCap className="h-5 w-5 mr-2" />
+              Quero Mentoria
               <ArrowRight className="h-5 w-5 ml-2" />
             </Button>
           </Link>
           
-          <Link to="/premium">
+          <Link to="/podcast">
             <Button 
               variant="outline" 
               size="lg" 
               className="border-border/60 hover:bg-accent/10 hover:border-primary/50 transition-smooth px-8 py-6 text-lg focus-ring"
             >
               <Play className="h-5 w-5 mr-2" />
-              Tornar-se Premium
+              Ouvir Podcast
             </Button>
           </Link>
         </div>
