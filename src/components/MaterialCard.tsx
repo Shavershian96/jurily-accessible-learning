@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import { 
   BookOpen, 
   FileText, 
@@ -73,17 +74,34 @@ const MaterialCard = ({
 
   const TypeIcon = getTypeIcon();
 
+  const getTypeRoute = () => {
+    switch (type) {
+      case "apostila": return "/conteudos/apostilas";
+      case "artigo": return "/conteudos/artigos";
+      case "constituicao": return "/conteudos/constituicoes";
+      case "video": return "/conteudos/videos";
+      default: return "/conteudos";
+    }
+  };
+
   return (
-    <Card className="group card-gradient border-border/60 hover:border-primary/30 transition-smooth hover:shadow-card overflow-hidden">
+    <Card className="group card-gradient border-border/60 hover:border-primary/30 transition-smooth hover:shadow-card overflow-hidden relative">
+      {/* Overlay Link for entire card */}
+      <Link 
+        to={getTypeRoute()} 
+        className="absolute inset-0 z-10" 
+        aria-label={`Acessar ${getTypeLabel()}: ${title}`}
+      />
+      
       <CardHeader className="space-y-3">
         {/* Type and Premium Badge */}
         <div className="flex items-center justify-between">
-          <Badge className={`${getTypeColor()} border`}>
+          <Badge className={`${getTypeColor()} border pointer-events-none`}>
             <TypeIcon className="h-3 w-3 mr-1" />
             {getTypeLabel()}
           </Badge>
           {isPremium && (
-            <Badge className="bg-secondary/10 text-secondary border-secondary/20">
+            <Badge className="bg-secondary/10 text-secondary border-secondary/20 pointer-events-none">
               <Crown className="h-3 w-3 mr-1" />
               Premium
             </Badge>
@@ -91,12 +109,12 @@ const MaterialCard = ({
         </div>
 
         {/* Title */}
-        <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-smooth line-clamp-2">
+        <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-smooth line-clamp-2 pointer-events-none">
           {title}
         </h3>
 
         {/* Description */}
-        <p className="text-sm text-muted-foreground line-clamp-3 reading-content">
+        <p className="text-sm text-muted-foreground line-clamp-3 reading-content pointer-events-none">
           {description}
         </p>
       </CardHeader>
@@ -104,7 +122,7 @@ const MaterialCard = ({
       <CardContent className="space-y-4">
         {/* Tags */}
         {tags.length > 0 && (
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-1 pointer-events-none">
             {tags.slice(0, 3).map((tag) => (
               <Badge 
                 key={tag} 
@@ -123,7 +141,7 @@ const MaterialCard = ({
         )}
 
         {/* Metadata */}
-        <div className="flex items-center justify-between text-xs text-muted-foreground">
+        <div className="flex items-center justify-between text-xs text-muted-foreground pointer-events-none">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1">
               <User className="h-3 w-3" />
@@ -145,7 +163,11 @@ const MaterialCard = ({
             {hasAudio && (
               <Volume2 className="h-3 w-3 text-primary" />
             )}
-            <button className="hover:text-primary transition-smooth">
+            <button 
+              className="hover:text-primary transition-smooth relative z-20 pointer-events-auto"
+              onClick={(e) => e.stopPropagation()}
+              aria-label="Favoritar material"
+            >
               <Heart className={`h-3 w-3 ${isLiked ? 'fill-red-500 text-red-500' : ''}`} />
             </button>
           </div>
@@ -154,29 +176,33 @@ const MaterialCard = ({
 
       <CardFooter className="pt-0">
         <div className="flex w-full gap-2">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="flex-1 hover:bg-accent/50 transition-smooth focus-ring"
-          >
-            {isPremium ? (
-              <>
-                <Lock className="h-4 w-4 mr-2" />
-                Visualizar
-              </>
-            ) : (
-              <>
-                <Eye className="h-4 w-4 mr-2" />
-                Ler Agora
-              </>
-            )}
-          </Button>
+          <Link to={getTypeRoute()} className="flex-1 relative z-20">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="w-full hover:bg-accent/50 transition-smooth focus-ring"
+            >
+              {isPremium ? (
+                <>
+                  <Lock className="h-4 w-4 mr-2" />
+                  Visualizar
+                </>
+              ) : (
+                <>
+                  <Eye className="h-4 w-4 mr-2" />
+                  Ler Agora
+                </>
+              )}
+            </Button>
+          </Link>
           
           {hasAudio && (
             <Button 
               variant="ghost" 
               size="sm" 
-              className="hover:bg-primary/10 hover:text-primary transition-smooth focus-ring"
+              className="hover:bg-primary/10 hover:text-primary transition-smooth focus-ring relative z-20"
+              onClick={(e) => e.stopPropagation()}
+              aria-label="Reproduzir áudio"
             >
               <Volume2 className="h-4 w-4" />
             </Button>

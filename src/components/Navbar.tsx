@@ -33,7 +33,8 @@ const Navbar = () => {
   const { user, signOut, isAdmin, isTeacher } = useAuth();
 
   const staticMenuItems = [
-    { icon: BookOpen, label: "Catálogo", href: "/catalog" },
+    { icon: BookOpen, label: "Conteúdos", href: "/conteudos" },
+    { icon: GraduationCap, label: "Mentoria", href: "/mentoria" },
     { icon: Crown, label: "Premium", href: "/premium" },
   ];
 

@@ -1,17 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 import { 
-  Mic, 
-  Play, 
-  ExternalLink, 
-  Clock, 
-  Calendar,
+  PlayCircle, 
+  Headphones, 
+  BookOpen, 
   Download,
-  Share2,
-  BookOpen,
-  Volume2,
-  Headphones
+  ExternalLink,
+  Mic,
+  Users,
+  Clock,
+  Star,
+  GraduationCap
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -19,60 +20,32 @@ import Footer from "@/components/Footer";
 const Podcast = () => {
   const episodes = [
     {
-      title: "Preâmbulo da Constituição",
-      description: "Análise completa do preâmbulo constitucional e sua importância jurídica",
-      duration: "15 min",
+      title: "Artigo 1º - Princípios Fundamentais",
+      description: "Análise detalhada dos princípios que regem a República Federativa do Brasil",
+      duration: "25:30",
       date: "2024-01-15",
-      spotifyUrl: "https://open.spotify.com/episode/example1"
+      isNew: true
     },
     {
-      title: "Artigo 1º - Fundamentos da República",
-      description: "Soberania, cidadania, dignidade da pessoa humana e valores sociais do trabalho",
-      duration: "22 min", 
-      date: "2024-01-08",
-      spotifyUrl: "https://open.spotify.com/episode/example2"
+      title: "Artigo 5º - Direitos e Garantias Individuais",
+      description: "Exploração dos direitos fundamentais previstos na Constituição",
+      duration: "42:15",
+      date: "2024-01-10",
+      isNew: false
     },
     {
-      title: "Artigo 2º - Separação dos Poderes",
-      description: "Harmonia e independência entre Executivo, Legislativo e Judiciário",
-      duration: "18 min",
-      date: "2024-01-01",
-      spotifyUrl: "https://open.spotify.com/episode/example3"
-    },
-    {
-      title: "Artigo 3º - Objetivos Fundamentais",
-      description: "Construir uma sociedade livre, justa e solidária",
-      duration: "20 min",
-      date: "2023-12-25",
-      spotifyUrl: "https://open.spotify.com/episode/example4"
+      title: "Artigo 37 - Administração Pública",
+      description: "Princípios da administração pública e seus desdobramentos",
+      duration: "38:20",
+      date: "2024-01-05",
+      isNew: false
     }
   ];
 
   const stats = [
-    {
-      icon: Play,
-      number: "50+",
-      label: "Episódios",
-      description: "Artigos explicados"
-    },
-    {
-      icon: Clock,
-      number: "15h",
-      label: "Conteúdo",
-      description: "Total gravado"
-    },
-    {
-      icon: Headphones,
-      number: "2.5k",
-      label: "Ouvintes",
-      description: "Mensais ativos"
-    },
-    {
-      icon: BookOpen,
-      number: "183",
-      label: "Artigos",
-      description: "Para cobrir"
-    }
+    { icon: Users, label: "Ouvintes", value: "50K+" },
+    { icon: Clock, label: "Horas de conteúdo", value: "200+" },
+    { icon: Star, label: "Avaliação", value: "4.9" }
   ];
 
   return (
@@ -86,215 +59,150 @@ const Podcast = () => {
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <Badge className="accent-gradient text-background px-4 py-2">
               <Mic className="h-4 w-4 mr-2" />
-              Podcast Educativo
+              Podcast Educacional
             </Badge>
             
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
               <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Leitura da
+                Podcast
               </span>
               <br />
-              Constituição
+              Leitura da Constituição
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto reading-content">
-              Aprenda a Constituição Federal de forma prática e acessível. Cada episódio explica 
-              artigos específicos com comentários jurídicos e aplicações práticas.
+              Aprenda a Constituição Federal de 1988 de forma prática e acessível. 
+              Artigo por artigo, com explicações claras e exemplos do dia a dia.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg" 
-                className="accent-gradient text-background font-semibold focus-ring"
-                onClick={() => window.open('https://open.spotify.com/show/116oUNLD4pIqTkzHtYtYKj', '_blank')}
+              <a 
+                href="https://open.spotify.com/show/116oUNLD4pIqTkzHtYtYKj" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-block"
               >
-                <Volume2 className="h-5 w-5 mr-2" />
-                Ouvir no Spotify
-              </Button>
-              <Button variant="outline" size="lg" className="focus-ring">
-                <Share2 className="h-5 w-5 mr-2" />
-                Compartilhar
-              </Button>
+                <Button size="lg" className="accent-gradient text-background font-semibold focus-ring">
+                  <ExternalLink className="h-5 w-5 mr-2" />
+                  Ouvir no Spotify
+                </Button>
+              </a>
+              <Link to="/mentoria">
+                <Button variant="outline" size="lg" className="focus-ring">
+                  <GraduationCap className="h-5 w-5 mr-2" />
+                  Quero Mentoria
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Spotify Player Embed */}
-      <section className="py-20">
+      {/* Spotify Embed */}
+      <section className="py-16">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Player Oficial</h2>
+              <h2 className="text-3xl font-bold mb-4">Ouça Diretamente Aqui</h2>
               <p className="text-muted-foreground">
-                Ouça diretamente aqui ou acesse nossa página no Spotify
+                Player integrado do Spotify para sua conveniência
               </p>
             </div>
             
-            <div className="relative bg-card/50 rounded-2xl p-6 shadow-card">
+            <div className="bg-card/50 border border-border/60 rounded-lg p-6">
               <iframe 
-                src="https://open.spotify.com/embed/show/116oUNLD4pIqTkzHtYtYKj?utm_source=generator&theme=0" 
+                src="https://open.spotify.com/embed/show/116oUNLD4pIqTkzHtYtYKj?utm_source=generator&theme=0"
                 width="100%" 
                 height="352" 
                 frameBorder="0" 
+                allowFullScreen
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                 loading="lazy"
-                className="rounded-xl"
-                title="Podcast Leitura da Constituição no Spotify"
+                className="rounded-lg"
+                title="Podcast Leitura da Constituição - Spotify Player"
               />
-              
-              <div className="mt-6 text-center">
-                <Button
-                  variant="outline"
-                  onClick={() => window.open('https://open.spotify.com/show/116oUNLD4pIqTkzHtYtYKj', '_blank')}
-                  className="focus-ring"
-                >
-                  <ExternalLink className="h-4 w-4 mr-2" />
-                  Abrir no Spotify
-                </Button>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Statistics */}
-      <section className="py-20 bg-card/30">
-        <div className="container">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Impacto do Projeto</h2>
-              <p className="text-muted-foreground">
-                Democratizando o acesso ao conhecimento constitucional
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <Card key={index} className="text-center border-border/50 bg-gradient-to-br from-card to-muted/20">
-                  <CardContent className="p-6">
-                    <div className="flex justify-center mb-4">
-                      <div className="p-3 rounded-full bg-primary/10">
-                        <stat.icon className="h-8 w-8 text-primary" />
-                      </div>
-                    </div>
-                    <div className="text-3xl font-bold text-primary mb-2">{stat.number}</div>
-                    <div className="font-semibold mb-1">{stat.label}</div>
-                    <div className="text-sm text-muted-foreground">{stat.description}</div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Recent Episodes */}
-      <section className="py-20">
+      {/* Episodes List */}
+      <section className="py-16">
         <div className="container">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">Episódios Recentes</h2>
               <p className="text-muted-foreground">
-                Acompanhe os últimos artigos explicados
+                Explore os artigos da Constituição já explicados
               </p>
             </div>
-
-            <div className="space-y-6">
+            
+            <div className="grid gap-6">
               {episodes.map((episode, index) => (
-                <Card key={index} className="border-border/50 hover:shadow-glow transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="p-2 rounded-full bg-primary/10">
-                            <Play className="h-4 w-4 text-primary" />
-                          </div>
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                            <div className="flex items-center gap-1">
-                              <Calendar className="h-4 w-4" />
-                              {new Date(episode.date).toLocaleDateString('pt-BR')}
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Clock className="h-4 w-4" />
-                              {episode.duration}
-                            </div>
-                          </div>
+                <Card key={index} className="card-gradient border-border/60 hover:border-primary/30 transition-smooth">
+                  <CardHeader>
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="outline" className="bg-primary/5 text-primary border-primary/20">
+                        <PlayCircle className="h-3 w-3 mr-1" />
+                        Episódio
+                      </Badge>
+                      {episode.isNew && (
+                        <Badge className="bg-secondary/10 text-secondary border-secondary/20">
+                          Novo
+                        </Badge>
+                      )}
+                    </div>
+                    <CardTitle className="text-xl">{episode.title}</CardTitle>
+                    <CardDescription className="text-base">{episode.description}</CardDescription>
+                  </CardHeader>
+                  
+                  <CardContent>
+                    <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-1">
+                          <Clock className="h-3 w-3" />
+                          <span>{episode.duration}</span>
                         </div>
-                        
-                        <h3 className="text-xl font-semibold mb-2">{episode.title}</h3>
-                        <p className="text-muted-foreground reading-content mb-4">
-                          {episode.description}
-                        </p>
-                        
-                        <div className="flex gap-3">
-                          <Button 
-                            size="sm" 
-                            className="accent-gradient text-background focus-ring"
-                            onClick={() => window.open(episode.spotifyUrl, '_blank')}
-                          >
-                            <Play className="h-4 w-4 mr-2" />
-                            Ouvir
-                          </Button>
-                          <Button variant="outline" size="sm" className="focus-ring">
-                            <Share2 className="h-4 w-4 mr-2" />
-                            Compartilhar
-                          </Button>
+                        <div className="flex items-center space-x-1">
+                          <span>{new Date(episode.date).toLocaleDateString('pt-BR')}</span>
                         </div>
                       </div>
+                    </div>
+                    
+                    <div className="flex gap-2">
+                      <a 
+                        href="https://open.spotify.com/show/116oUNLD4pIqTkzHtYtYKj" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex-1"
+                      >
+                        <Button variant="outline" size="sm" className="w-full focus-ring">
+                          <PlayCircle className="h-4 w-4 mr-2" />
+                          Ouvir Episódio
+                        </Button>
+                      </a>
                     </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
-
-            <div className="text-center mt-12">
-              <Button 
-                variant="outline" 
-                size="lg"
-                onClick={() => window.open('https://open.spotify.com/show/116oUNLD4pIqTkzHtYtYKj', '_blank')}
-                className="focus-ring"
-              >
-                <ExternalLink className="h-5 w-5 mr-2" />
-                Ver Todos os Episódios
-              </Button>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* About Project */}
-      <section className="py-20 bg-card/30">
+      {/* Stats */}
+      <section className="py-16 bg-card/30">
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">Sobre o Projeto</h2>
-            <div className="space-y-6 text-muted-foreground reading-content">
-              <p>
-                O podcast "Leitura da Constituição" nasceu da necessidade de tornar o texto 
-                constitucional mais acessível para estudantes, profissionais do direito e 
-                cidadãos interessados em conhecer seus direitos e deveres.
-              </p>
-              <p>
-                Cada episódio é cuidadosamente preparado com explicações didáticas, 
-                exemplos práticos e comentários jurisprudenciais, transformando o estudo 
-                da Constituição em uma experiência envolvente e educativa.
-              </p>
-              <p>
-                Nossa missão é democratizar o conhecimento constitucional, contribuindo 
-                para uma sociedade mais consciente e juridicamente informada.
-              </p>
-            </div>
-            
-            <div className="mt-8">
-              <Button 
-                size="lg"
-                className="accent-gradient text-background font-semibold focus-ring"
-                onClick={() => window.open('https://open.spotify.com/show/116oUNLD4pIqTkzHtYtYKj', '_blank')}
-              >
-                <Headphones className="h-5 w-5 mr-2" />
-                Começar a Ouvir
-              </Button>
-            </div>
+          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 rounded-lg bg-primary/10 text-primary">
+                  <stat.icon className="h-6 w-6" />
+                </div>
+                <div className="text-2xl font-bold text-foreground mb-1">{stat.value}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

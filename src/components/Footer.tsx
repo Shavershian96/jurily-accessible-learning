@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { Link } from "react-router-dom";
 import { 
   Scale, 
   Mail, 
@@ -19,17 +20,18 @@ import {
 
 const Footer = () => {
   const quickLinks = [
-    { icon: BookOpen, label: "Apostilas", href: "/apostilas" },
-    { icon: FileText, label: "Artigos", href: "/artigos" },
-    { icon: Scale, label: "Constituições", href: "/constituicoes" },
-    { icon: Users, label: "Professores", href: "/professores" }
+    { icon: BookOpen, label: "Apostilas", href: "/conteudos/apostilas" },
+    { icon: FileText, label: "Artigos", href: "/conteudos/artigos" },
+    { icon: Scale, label: "Constituições", href: "/conteudos/constituicoes" },
+    { icon: Users, label: "Mentoria", href: "/mentoria" },
+    { icon: FileText, label: "Podcast", href: "/podcast" }
   ];
 
   const legalLinks = [
-    { label: "Política de Privacidade", href: "/privacy" },
-    { label: "Termos de Uso", href: "/terms" },
-    { label: "LGPD", href: "/lgpd" },
-    { label: "Acessibilidade", href: "/accessibility" }
+    { label: "Política de Privacidade", href: "/privacidade" },
+    { label: "Sobre Nós", href: "/sobre" },
+    { label: "Contato", href: "/contato" },
+    { label: "Premium", href: "/premium" }
   ];
 
   const socialLinks = [
@@ -79,13 +81,15 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.label}>
-                  <Button
-                    variant="ghost"
-                    className="h-auto p-0 text-muted-foreground hover:text-primary transition-smooth justify-start"
-                  >
-                    <link.icon className="h-4 w-4 mr-2" />
-                    {link.label}
-                  </Button>
+                  <Link to={link.href}>
+                    <Button
+                      variant="ghost"
+                      className="h-auto p-0 text-muted-foreground hover:text-primary transition-smooth justify-start"
+                    >
+                      <link.icon className="h-4 w-4 mr-2" />
+                      {link.label}
+                    </Button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -97,13 +101,15 @@ const Footer = () => {
             <ul className="space-y-3">
               {legalLinks.map((link) => (
                 <li key={link.label}>
-                  <Button
-                    variant="ghost"
-                    className="h-auto p-0 text-muted-foreground hover:text-primary transition-smooth justify-start"
-                  >
-                    <Shield className="h-4 w-4 mr-2" />
-                    {link.label}
-                  </Button>
+                  <Link to={link.href}>
+                    <Button
+                      variant="ghost"
+                      className="h-auto p-0 text-muted-foreground hover:text-primary transition-smooth justify-start"
+                    >
+                      <Shield className="h-4 w-4 mr-2" />
+                      {link.label}
+                    </Button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -136,14 +142,14 @@ const Footer = () => {
 
         {/* Contact Info */}
         <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <div className="flex items-center space-x-3 text-sm text-muted-foreground">
+          <a href="mailto:contato@luthi.online" className="flex items-center space-x-3 text-sm text-muted-foreground hover:text-primary transition-smooth">
             <Mail className="h-4 w-4 text-primary" />
             <span>contato@luthi.online</span>
-          </div>
-          <div className="flex items-center space-x-3 text-sm text-muted-foreground">
+          </a>
+          <a href="https://wa.me/5511999990000" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-3 text-sm text-muted-foreground hover:text-primary transition-smooth">
             <Phone className="h-4 w-4 text-primary" />
             <span>+55 (11) 99999-0000</span>
-          </div>
+          </a>
           <div className="flex items-center space-x-3 text-sm text-muted-foreground">
             <MapPin className="h-4 w-4 text-primary" />
             <span>São Paulo, Brasil</span>
