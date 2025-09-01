@@ -12,6 +12,12 @@ import TeacherDashboard from "./pages/TeacherDashboard";
 import Admin from "./pages/Admin";
 import Account from "./pages/Account";
 import Auth from "./pages/Auth";
+import Mentoria from "./pages/Mentoria";
+import Podcast from "./pages/Podcast";
+import Conteudos from "./pages/Conteudos";
+import Sobre from "./pages/Sobre";
+import Contato from "./pages/Contato";
+import Privacidade from "./pages/Privacidade";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +38,12 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/account" element={<Account />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/mentoria" element={<Mentoria />} />
+            <Route path="/podcast" element={<Podcast />} />
+            <Route path="/conteudos" element={<Conteudos />} />
+            <Route path="/sobre" element={<Sobre />} />
+            <Route path="/contato" element={<Contato />} />
+            <Route path="/privacidade" element={<Privacidade />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
